@@ -85,6 +85,13 @@
   Structures and Global Variables
  **************************************************************************/
 
+struct InstantaneousRegs {
+	int32_t InstantaneousCurrentReg;
+	int32_t InstantaneousVoltageReg;
+	float InstantaneousCurrentValue;
+	float InstantaneousVoltageValue;
+};
+
 struct EnergyRegs {
 	int32_t ActiveEnergyReg;
 	int32_t FundReactiveEnergyReg;
@@ -154,6 +161,7 @@ public:
 	uint32_t SPI_Read_32(uint16_t Address);
 
 	/* ADE9153A Calculated Paramter Read Functions */
+	void ReadInstantaneousRegs(InstantaneousRegs *Data);
 	void ReadEnergyRegs(EnergyRegs *Data);
 	void ReadPowerRegs(PowerRegs *Data);
 	void ReadRMSRegs(RMSRegs *Data);

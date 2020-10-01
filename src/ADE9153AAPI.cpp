@@ -195,6 +195,22 @@ Input: Structure name
 Output: Respective metrology data
 */
 
+void ADE9153AClass:: ReadInstantaneousRegs(struct InstantaneousRegs *Data)
+{
+	int32_t tempReg;
+	float tempValue;
+	
+	tempReg = int32_t (SPI_Read_32(REG_AI_WAV));
+	Data->InstantaneousCurrentReg = tempReg;
+	tempValue = (float)tempReg;
+	Data->InstantaneousCurrentValue = tempValue;		//Instantaneous current in A
+	
+	tempReg = int32_t (SPI_Read_32(REG_AV_WAV));
+	Data->InstantaneousVoltageReg = tempReg;
+	tempValue = (float)tempReg;
+	Data->InstantaneousVoltageValue = tempValue;		//Instantaneous voltage in V
+}
+
 void ADE9153AClass:: ReadEnergyRegs(struct EnergyRegs *Data)
 {
 	int32_t tempReg;
