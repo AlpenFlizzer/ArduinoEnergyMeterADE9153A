@@ -38,15 +38,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include  <ADE9153A.h>
+#include <ADE9153A.h>
 #include <ADE9153AAPI.h>
 
 /* Basic initializations */
 #define SPI_SPEED 1000000     //SPI Speed
-#define CS_PIN 8              //8-->Arduino Zero. 15-->ESP8266 
-#define ADE9153A_RESET_PIN 4  //On-board Reset Pin
-#define USER_INPUT 5          //On-board User Input Button Pin
-#define LED 6                 //On-board LED pin
+#define CS_PIN 10              //8-->Arduino Zero. 15-->ESP8266. 10-->Teensy 4.0/4.1
+#define ADE9153A_RESET_PIN 4  //On-board Reset Pin. Connect to Teensy Pin 4.
+#define USER_INPUT 5          //On-board User Input Button Pin. Connect to Teensy Pin 5.
+#define LED 6                 //On-board LED pin. Connect to Teensy Pin 6.
 ADE9153AClass ade9153A;
 
 struct EnergyRegs energyVals;  //Energy register values are read and stored in EnergyRegs structure
@@ -99,7 +99,8 @@ void loop() {
   
   if ((currentReport - lastReport) >= reportInterval){
     lastReport = currentReport;
-    readandwrite();
+    //readandwrite();
+    readandwrite_InstantaneousValues();
   }
   
   inputState = digitalRead(USER_INPUT);
@@ -212,7 +213,7 @@ void resetADE9153A(void)
  Serial.println("Reset Done");
 }
 
-void runLength(long seconds)
+void runLength(unsigned long seconds)
 {
   unsigned long startTime = millis();
   

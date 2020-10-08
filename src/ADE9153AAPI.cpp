@@ -40,7 +40,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include "ADE9153AAPI.h"
-#include <Wire.h>
+//#include <Wire.h>
 
 ADE9153AClass::ADE9153AClass()
 {
@@ -202,13 +202,13 @@ void ADE9153AClass:: ReadInstantaneousRegs(struct InstantaneousRegs *Data)
 	
 	tempReg = int32_t (SPI_Read_32(REG_AI_WAV));
 	Data->InstantaneousCurrentReg = tempReg;
-	tempValue = (float)tempReg;
-	Data->InstantaneousCurrentValue = tempValue;		//Instantaneous current in A
+	tempValue = (float)tempReg / 1000;
+	Data->InstantaneousCurrentValue = tempValue;		//Instantaneous current in mA
 	
 	tempReg = int32_t (SPI_Read_32(REG_AV_WAV));
 	Data->InstantaneousVoltageReg = tempReg;
-	tempValue = (float)tempReg;
-	Data->InstantaneousVoltageValue = tempValue;		//Instantaneous voltage in V
+	tempValue = (float)tempReg / 1000;
+	Data->InstantaneousVoltageValue = tempValue;		//Instantaneous voltage in mV
 }
 
 void ADE9153AClass:: ReadEnergyRegs(struct EnergyRegs *Data)
