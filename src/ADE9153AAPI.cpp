@@ -200,12 +200,12 @@ void ADE9153AClass:: ReadInstantaneousRegs(struct InstantaneousRegs *Data)
 	int32_t tempReg;
 	float tempValue;
 	
-	tempReg = int32_t (SPI_Read_32(REG_AI_WAV));
+	tempReg = int32_t (SPI_Read_32(REG_AI_WAV_1));
 	Data->InstantaneousCurrentReg = tempReg;
 	tempValue = (float)tempReg / 1000;
 	Data->InstantaneousCurrentValue = tempValue;		//Instantaneous current in mA
 	
-	tempReg = int32_t (SPI_Read_32(REG_AV_WAV));
+	tempReg = int32_t (SPI_Read_32(REG_AV_WAV_1));
 	Data->InstantaneousVoltageReg = tempReg;
 	tempValue = (float)tempReg / 1000;
 	Data->InstantaneousVoltageValue = tempValue;		//Instantaneous voltage in mV
