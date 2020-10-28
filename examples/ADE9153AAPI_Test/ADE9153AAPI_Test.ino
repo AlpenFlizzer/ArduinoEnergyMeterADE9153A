@@ -51,7 +51,6 @@ ADE9153AClass ade9153A;
 
 struct EnergyRegs energyVals;  //Energy register values are read and stored in EnergyRegs structure
 struct PowerRegs powerVals;    //Metrology data can be accessed from these structures
-struct InstantaneousRegs instantaneousVals;
 struct RMSRegs rmsVals;  
 struct PQRegs pqVals;
 struct AcalRegs acalVals;
@@ -99,8 +98,7 @@ void loop() {
   
   if ((currentReport - lastReport) >= reportInterval){
     lastReport = currentReport;
-    //readandwrite();
-    readandwrite_InstantaneousValues();
+    readandwrite();
   }
   
   inputState = digitalRead(USER_INPUT);
@@ -133,32 +131,6 @@ void loop() {
     Serial.println("Autocalibration Complete");
     delay(2000);
   }
-}
-
-void readandwrite_InstantaneousValues()
-{ 
- /* Read and Print WATT Register using ADE9153A Read Library */
-  ade9153A.ReadInstantaneousRegs(&instantaneousVals);    
-  ade9153A.ReadPowerRegs(&powerVals);
-
-  Serial.print("Instantaneous Current:\t");        
-  Serial.print(instantaneousVals.InstantaneousCurrentValue/1000); 
-  Serial.println(" A");
-  
-  Serial.print("Instantaneous Voltage:\t");        
-  Serial.print(instantaneousVals.InstantaneousVoltageValue/1000);
-  Serial.println(" V");
-  
-  Serial.print("Active Power (calculated):\t");        
-  Serial.print((instantaneousVals.InstantaneousCurrentValue/1000)*(instantaneousVals.InstantaneousVoltageValue/1000));
-  Serial.println(" W");
-
-  Serial.print("Active Power (from IC):\t");        
-  Serial.print(powerVals.ActivePowerValue/1000);
-  Serial.println(" W");
-  
-  Serial.println("");
-  Serial.println("");
 }
 
 void readandwrite()

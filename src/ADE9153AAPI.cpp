@@ -202,12 +202,12 @@ void ADE9153AClass:: ReadInstantaneousRegs(struct InstantaneousRegs *Data)
 	
 	tempReg = int32_t (SPI_Read_32(REG_AI_WAV));
 	Data->InstantaneousCurrentReg = tempReg;
-	tempValue = (float)tempReg / 1000000;
+	tempValue = (float)tempReg;
 	Data->InstantaneousCurrentValue = tempValue;		//Instantaneous current in A
 	
 	tempReg = int32_t (SPI_Read_32(REG_AV_WAV));
 	Data->InstantaneousVoltageReg = tempReg;
-	tempValue = (float)tempReg / 100000;
+	tempValue = (float)tempReg;
 	Data->InstantaneousVoltageValue = tempValue;		//Instantaneous voltage in V
 }
 
@@ -407,7 +407,7 @@ void ADE9153AClass::StopAcal(void)
 	SPI_Write_32(REG_MS_ACAL_CFG, 0x00000000);
 }
 
-bool ADE9153AClass::ApplyAcal(float AICC, float AVCC)
+void ADE9153AClass::ApplyAcal(float AICC, float AVCC)
 {
 	int32_t AIGAIN;
 	int32_t AVGAIN;
