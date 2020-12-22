@@ -181,7 +181,7 @@ public:
 	bool StartAcal_AITurbo(void);
 	bool StartAcal_AV(void);
 	void StopAcal(void);
-	bool ApplyAcal(float AICC, float AVCC);
+	void ApplyAcal(float AICC, float AVCC);
 
 	void ReadTemperature(Temperature *Data);
 
