@@ -48,7 +48,7 @@
  **************************************************************************/
 /* Configuration Registers */
 #define ADE9153A_AI_PGAGAIN 0x000A		/*Signal on IAN, current channel gain=16x*/
-#define ADE9153A_CONFIG0 0x00000000		/*Datapath settings at default*/
+#define ADE9153A_CONFIG0 0x01000000		/*Datapath settings at default*/
 #define ADE9153A_CONFIG1 0x0300			/*Chip settings at default*/
 #define ADE9153A_CONFIG2 0x0C00			/*High-pass filter corner, fc=0.625Hz*/
 #define ADE9153A_CONFIG3 0x0000			/*Peak and overcurrent settings*/
