@@ -195,6 +195,22 @@ Input: Structure name
 Output: Respective metrology data
 */
 
+void ADE9153AClass:: ReadPhaseACorrectionRegs(struct PhaseACorrectionRegs *Data)
+{
+	int32_t tempReg;
+	float tempValue;
+	
+	tempReg = int32_t (SPI_Read_32(REG_APGAIN));
+	Data->PhaseAPowerGainReg = tempReg;
+	tempValue = (float)tempReg;
+	Data->PhaseAPowerGainValue = tempValue;		//Phase A power gain adjust for AWATT, AVA, and AFVAR calculations.
+	
+	tempReg = int32_t (SPI_Read_32(REG_AWATT_OS));
+	Data->PhaseAOffsetReg = tempReg;
+	tempValue = (float)tempReg;
+	Data->PhaseAOffsetValue = tempValue;		//Phase A total active power offset correction for AWATT calculation.
+}
+
 void ADE9153AClass:: ReadInstantaneousRegs(struct InstantaneousRegs *Data)
 {
 	int32_t tempReg;

@@ -85,6 +85,13 @@
   Structures and Global Variables
  **************************************************************************/
 
+struct PhaseACorrectionRegs {
+	int32_t PhaseAPowerGainReg;
+	int32_t PhaseAOffsetReg;
+	float PhaseAPowerGainValue;
+	float PhaseAOffsetValue;
+};
+
 struct InstantaneousRegs {
 	int32_t InstantaneousCurrentReg;
 	int32_t InstantaneousVoltageReg;
@@ -161,6 +168,7 @@ public:
 	uint32_t SPI_Read_32(uint16_t Address);
 
 	/* ADE9153A Calculated Paramter Read Functions */
+	void ReadPhaseACorrectionRegs(PhaseACorrectionRegs *Data);
 	void ReadInstantaneousRegs(InstantaneousRegs *Data);
 	void ReadEnergyRegs(EnergyRegs *Data);
 	void ReadPowerRegs(PowerRegs *Data);
